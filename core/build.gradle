@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    api libraries.kotlin
+    api libraries.appCompat
+    api libraries.constraintLayout
+
+    //dagger
+    api libraries.dagger
+    api libraries.daggerAndroid
+    api libraries.daggerAndroidSupport
+    kapt libraries.daggerCompiler
+    kapt libraries.daggerProcessor
+
+    //reactive
+    api libraries.rxAndroid
+    api libraries.rxJava2
+
+    //lifecycle
+    api libraries.lifecycleExtension
+    kapt libraries.lifecycleCompiler
+
+    //room
+    api libraries.roomRuntime
+    api libraries.roomRxjava2
+    kapt libraries.roomCompiler
+
+    //rxjava2
+    api libraries.retrofitLibrary
+    api libraries.retrofitRxJava
+    api libraries.retrofitGson
+
+    //okhttp
+    api libraries.okhttp
+    api libraries.okhttpInterceptor
+}
