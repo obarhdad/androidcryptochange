@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.repositories.CryptoCompareRepository
 
 class CryptoListViewModelFactory(
-    private val cryptoCompareRepository: CryptoCompareRepository
+    private val cryptoCompareRepository: CryptoCompareRepository,
+    private val symCurrency: String
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -13,6 +14,6 @@ class CryptoListViewModelFactory(
         if (modelClass != CryptoListViewModel::class.java) {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
-        return CryptoListViewModel(cryptoCompareRepository) as T
+        return CryptoListViewModel(cryptoCompareRepository,symCurrency) as T
     }
 }

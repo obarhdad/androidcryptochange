@@ -7,7 +7,8 @@ import com.android.contact.android.crypto.change.core.cryptocompare.domain.repos
 import io.reactivex.disposables.CompositeDisposable
 
 class CryptoCompareDataSourceFactory(
-    private val cryptoCompareRepository: CryptoCompareRepository
+    private val cryptoCompareRepository: CryptoCompareRepository,
+    private val symCurrency: String
 ) : DataSource.Factory<Int, MarketFullInfo>() {
 
     val source: MutableLiveData<CryptoCompareDataSource> by lazy {
@@ -15,7 +16,7 @@ class CryptoCompareDataSourceFactory(
     }
 
     override fun create(): DataSource<Int, MarketFullInfo> {
-        val movieDataSource = CryptoCompareDataSource(CompositeDisposable(), cryptoCompareRepository)
+        val movieDataSource = CryptoCompareDataSource(CompositeDisposable(), cryptoCompareRepository, symCurrency)
         source.postValue(movieDataSource)
         return movieDataSource
     }

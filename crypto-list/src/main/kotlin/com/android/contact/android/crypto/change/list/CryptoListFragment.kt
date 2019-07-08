@@ -18,14 +18,23 @@ import com.android.contact.android.crypto.change.list.viewmodel.CryptoListViewMo
 import javax.inject.Inject
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.contact.android.crypto.change.core.internal.communication.AppCommunication
 
 
-class CryptoListFragment : Fragment() {
+class CryptoListFragment : Fragment(),
+    AppCommunication.Module {
 
     @Inject
     internal lateinit var cryptoListViewModel: CryptoListViewModel
 
+    @Inject
+    internal lateinit var navigationApp: AppCommunication.Navigation
+
     lateinit var binding: FragmentCryptoListBinding
+
+    private val tSym: String
+        get() = arguments?.getString(ARG_TSYM)
+            ?: throw IllegalStateException()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +60,7 @@ class CryptoListFragment : Fragment() {
         DaggerCryptoListComponent
             .builder()
             .coreComponent(CoreInjectHelper.provideCoreComponent(activity!!.applicationContext))
-            .cryptoListModule(CryptoListModule(this))
+            .cryptoListModule(CryptoListModule(this, tSym))
             .build()
             .inject(this)
         super.onAttach(context)
@@ -66,6 +75,22 @@ class CryptoListFragment : Fragment() {
     }
 
     private fun setCriptoListAdapter(pagedList: PagedList<MarketFullInfo>) {
-        (binding.cryptoListRecyclerView.adapter as CryptoListAdapter).submitList(pagedList)
+        (binding.cryptoListRecyclerView.adapter as CryptoListAdapter).submit(this::submitList, pagedList)
+    }
+
+    private fun submitList(fSym: String) {
+        navigationApp.onShowCryptoDetails(fSym, tSym)
+    }
+
+    companion object {
+        private val TAG = CryptoListFragment::class.java.simpleName
+        private val ARG_TSYM = "$TAG.ARG_TSYM"
+
+        fun newInstance(tSym: String) = CryptoListFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_TSYM, tSym)
+
+            }
+        }
     }
 }

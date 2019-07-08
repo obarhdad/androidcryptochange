@@ -1,5 +1,7 @@
 package com.android.contact.android.crypto.change.core.cryptocompare.domain.repositories
 
+import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.HistoricalHourly
+import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullByPair
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullInfo
 import io.reactivex.Single
 
@@ -9,4 +11,15 @@ interface CryptoCompareRepository{
         page: Int,
         tsym: String
     ): Single<List<MarketFullInfo>>
+
+    fun getHistoricalHour(
+        limit: Int,
+        fsym: String,
+        tsym: String
+    ): Single<HistoricalHourly>
+
+    fun getMarketFullByPair(
+        fsym: String,
+        tsym: String
+    ): Single<MarketFullByPair>
 }

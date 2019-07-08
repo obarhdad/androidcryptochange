@@ -9,8 +9,12 @@ class CryptoItemViewHolder(
     private val binding: ViewCryptoItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: MarketFullInfo) {
+    fun bind(
+        item: MarketFullInfo,
+        onItemClicked: ((String) -> Unit)
+    ) {
         binding.apply {
+            container.setOnClickListener { onItemClicked(item.name) }
             marketFullInfo = item
             executePendingBindings()
             container.addRipple()

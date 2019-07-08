@@ -35,7 +35,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(path: ':core')
     api project(path: ':crypto-list')
-    implementation libraries.navigationFragment
-    implementation libraries.navigationUI
+    api project(path: ':crypto-details')
+
 
 }

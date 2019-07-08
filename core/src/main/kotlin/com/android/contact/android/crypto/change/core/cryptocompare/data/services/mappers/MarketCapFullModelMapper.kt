@@ -36,6 +36,6 @@ class MarketCapFullModelMapper : Mapper<MarketCapFullInfoModel, MarketFullInfo> 
     companion object {
         const val URL_IMAGE = "https://www.cryptocompare.com"
         const val FROM = "from "
-        const val TO = " to"
+        const val TO = " to "
     }
 }

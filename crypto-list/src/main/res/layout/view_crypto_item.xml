@@ -14,8 +14,8 @@
 
         <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/speakerShotHead"
-                android:layout_width="@dimen/speaker_headshot_size"
-                android:layout_height="@dimen/speaker_headshot_size"
+                android:layout_width="@dimen/crypto_list_headshot_size"
+                android:layout_height="@dimen/crypto_list_headshot_size"
                 android:layout_gravity="center"
                 android:tint="?attr/colorOnPrimary"
                 app:imageUrl="@{marketFullInfo.imageUrl}"

@@ -1,9 +1,6 @@
 package com.android.contact.android.crypto.change.core.cryptocompare.data.databases.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.android.contact.android.crypto.change.core.cryptocompare.data.databases.models.MarketFullInfoEntity
 import com.android.contact.android.crypto.change.core.cryptocompare.data.databases.models.MarketPageFullInfoEntity
 import com.android.contact.android.crypto.change.core.cryptocompare.data.databases.models.MarketPageWithFullInfoDaoEntity
@@ -19,7 +16,7 @@ abstract class MarketPageFullInfoDao : KDao<MarketPageFullInfoEntity> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertMarketFullInfoEntity(fullInfoList: List<MarketFullInfoEntity>)
 
-    @Insert
+    @Transaction
     open fun insertMarketPageFullInfoEntity(
         fullInfo: List<MarketFullInfoEntity>,
         page: Int,

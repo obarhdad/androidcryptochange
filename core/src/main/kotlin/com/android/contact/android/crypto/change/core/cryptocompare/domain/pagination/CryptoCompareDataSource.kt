@@ -7,10 +7,11 @@ import io.reactivex.disposables.CompositeDisposable
 
 class CryptoCompareDataSource(
     private val subscription: CompositeDisposable,
-    private val cryptoCompareRepository: CryptoCompareRepository
+    private val cryptoCompareRepository: CryptoCompareRepository,
+    private val symCurrency: String
 ) : PageKeyedDataSource<Int, MarketFullInfo>() {
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, MarketFullInfo>) {
-        cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, FIRST_PAGE, SYM_CURRENCY)
+        cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, FIRST_PAGE, symCurrency)
             .let {
                 subscription.add(it.subscribe({ data ->
                     callback.onResult(data, 0, PAGE_PER_COUNT, null, FIRST_PAGE + 1)
@@ -21,7 +22,7 @@ class CryptoCompareDataSource(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, MarketFullInfo>) {
-        cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, params.key, SYM_CURRENCY)
+        cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, params.key, symCurrency)
             .let {
                 subscription.add(it.subscribe({ data ->
                     callback.onResult(data, params.key + 1)
@@ -32,7 +33,7 @@ class CryptoCompareDataSource(
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, MarketFullInfo>) {
-        cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, params.key, SYM_CURRENCY)
+        cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, params.key, symCurrency)
             .let {
                 subscription.add(it.subscribe({ data ->
                     callback.onResult(data, getPrevious(params))
@@ -48,6 +49,5 @@ class CryptoCompareDataSource(
     companion object {
         const val FIRST_PAGE = 0
         const val PAGE_PER_COUNT = 20
-        const val SYM_CURRENCY = "EUR"
     }
 }

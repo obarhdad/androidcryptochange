@@ -7,10 +7,11 @@ import com.android.contact.android.crypto.change.core.cryptocompare.domain.repos
 import com.android.contact.android.crypto.change.core.internal.commons.KViewModel
 
 class CryptoListViewModel(
-    cryptoCompareRepository: CryptoCompareRepository
+    cryptoCompareRepository: CryptoCompareRepository,
+    symCurrency: String
 ) : KViewModel() {
 
-    val marketFullInfo = CryptoCompareDataSourceFactory(cryptoCompareRepository)
+    val marketFullInfo = CryptoCompareDataSourceFactory(cryptoCompareRepository, symCurrency)
         .toLiveData(Config(PAGE_SIZE))
 
     companion object {
