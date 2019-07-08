@@ -12,6 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_KEY", project.apiKey)
     }
 
     buildTypes {
@@ -23,12 +24,19 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     api libraries.kotlin
     api libraries.appCompat
     api libraries.constraintLayout
+    api libraries.coreKtx
+    api libraries.material
+    api libraries.circular
+    api libraries.picasso
 
     //dagger
     api libraries.dagger
@@ -50,7 +58,7 @@ dependencies {
     api libraries.roomRxjava2
     kapt libraries.roomCompiler
 
-    //rxjava2
+    //retrofit
     api libraries.retrofitLibrary
     api libraries.retrofitRxJava
     api libraries.retrofitGson
@@ -58,4 +66,8 @@ dependencies {
     //okhttp
     api libraries.okhttp
     api libraries.okhttpInterceptor
+
+    //paging
+    api libraries.pagingRuntime
+    api libraries.pagingRuntimeKtx
 }

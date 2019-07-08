@@ -2,7 +2,7 @@ package com.android.contact.android.crypto.change.core.cryptocompare.data.databa
 
 import com.android.contact.android.crypto.change.core.cryptocompare.data.databases.models.MarketFullInfoEntity
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullInfo
-import com.android.contact.management.business.contact.internal.mapper.Mapper
+import com.android.contact.android.crypto.change.core.internal.mapper.Mapper
 
 class MarketFullInfoEntityMapper : Mapper<MarketFullInfoEntity, MarketFullInfo> {
     override fun map(from: MarketFullInfoEntity): MarketFullInfo =
@@ -10,7 +10,9 @@ class MarketFullInfoEntityMapper : Mapper<MarketFullInfoEntity, MarketFullInfo> 
             from.id,
             from.name,
             from.fullName,
-            from.imageUrl
+            from.imageUrl,
+            from.price,
+            from.symbol
         )
 
     override fun from(to: MarketFullInfo): MarketFullInfoEntity =
@@ -18,6 +20,8 @@ class MarketFullInfoEntityMapper : Mapper<MarketFullInfoEntity, MarketFullInfo> 
             to.id,
             to.name,
             to.fullName,
-            to.imageUrl
+            to.imageUrl,
+            to.price,
+            to.symbol
         )
 }

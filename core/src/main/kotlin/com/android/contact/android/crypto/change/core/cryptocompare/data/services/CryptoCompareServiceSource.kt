@@ -5,8 +5,8 @@ import io.reactivex.Single
 
 interface CryptoCompareServiceSource {
     fun getMarketFullInfo(
-        limit: String,
-        page: String,
+        limit: Int,
+        page: Int,
         tsym: String
-    ): Single<MarketFullInfo>
+    ): Single<List<MarketFullInfo>>
 }

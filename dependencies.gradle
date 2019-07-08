@@ -7,21 +7,31 @@ ext {
     androidSupportLibraryVersion = '28.0.0'
     androidNavVersion = "2.1.0-alpha03"
     daggerVersion = "2.20"
-    glideVersion = "4.8.0-SNAPSHOT"
+    picassoVersion = "2.71828"
     kotlinVersion = "1.3.31"
     appCompatVersion = "1.0.2"
     retrofitVersion = '2.4.0'
-    rxAndroidVersion = '2.0.2'
-    rxJavaVersion = '2.1.10'
+    rxAndroidVersion = '2.1.0'
+    rxJavaVersion = '2.2.6'
     lifecycleVersion = '2.0.0-beta01'
     timberVersion = '4.7.1'
     roomVersion = '2.1.0-beta01'
     retrofitVersion = '2.5.0'
     okhttpVersion = "3.12.1"
+    pagingVersion = "2.1.0"
+    coreVersion = "1.2.0-alpha01"
+    materialVersion = "1.1.0-alpha02"
+    circularVersion = "3.2.0"
+    constraintLayoutVersion = "1.1.3"
+    cardViewVersion = "1.0.0-alpha1"
+    recyclerViewVersion = "1.0.0-alpha1"
 
     libraries = [
             kotlin              : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion",
+            coreKtx             : "androidx.core:core-ktx:$coreVersion",
+            material            : "com.google.android.material:material:$materialVersion",
             appCompat           : "androidx.appcompat:appcompat:$appCompatVersion",
+            circular            : "com.mikhaellopez:circularimageview:$circularVersion",
             retrofit            : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitRxJava2     : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
             converterGson       : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
@@ -29,16 +39,15 @@ ext {
             rxJava2             : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
             navigationFragment  : "androidx.navigation:navigation-fragment-ktx:$androidNavVersion",
             navigationUI        : "androidx.navigation:navigation-ui:$androidNavVersion",
-            constraintLayout    : 'androidx.constraintlayout:constraintlayout:1.1.3',
-            cardView            : 'androidx.cardview:cardview:1.0.0-alpha1',
-            recyclerView        : 'androidx.recyclerview:recyclerview:1.0.0-alpha1',
+            constraintLayout    : "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+            cardView            : "androidx.cardview:cardview:$cardViewVersion",
+            recyclerView        : "androidx.recyclerview:recyclerview:$recyclerViewVersion",
             daggerCompiler      : "com.google.dagger:dagger-compiler:$daggerVersion",
             daggerProcessor     : "com.google.dagger:dagger-android-processor:$daggerVersion",
             dagger              : "com.google.dagger:dagger:$daggerVersion",
             daggerAndroid       : "com.google.dagger:dagger-android:$daggerVersion",
             daggerAndroidSupport: "com.google.dagger:dagger-android-support:$daggerVersion",
-            glide               : "com.github.bumptech.glide:glide:$glideVersion",
-            glideCompiler       : "com.github.bumptech.glide:compiler:$glideVersion",
+            picasso             : "com.squareup.picasso:picasso:$picassoVersion",
             lifecycleExtension  : "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion",
             lifecycleCompiler   : "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion",
             timber              : "com.jakewharton.timber:timber:$timberVersion",
@@ -50,5 +59,7 @@ ext {
             retrofitGson        : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             okhttp              : "com.squareup.okhttp3:okhttp:$okhttpVersion",
             okhttpInterceptor   : "com.squareup.okhttp3:logging-interceptor:$okhttpVersion",
+            pagingRuntime       : "androidx.paging:paging-runtime:$pagingVersion",
+            pagingRuntimeKtx    : "androidx.paging:paging-runtime-ktx:$pagingVersion",
     ]
 }

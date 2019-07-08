@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navController = findNavController(R.id.mainNavFragment)
+        //navController = findNavController(R.id.mainNavFragment)
         //NavigationUI.setupWithNavController(bottomNavView, navController)
     }
 }

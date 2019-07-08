@@ -4,5 +4,7 @@ data class MarketFullInfo(
     val id: String,
     val name: String,
     val fullName: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val price: String,
+    val symbol: String
 )

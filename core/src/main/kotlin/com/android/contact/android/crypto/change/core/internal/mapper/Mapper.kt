@@ -1,4 +1,4 @@
-package com.android.contact.management.business.contact.internal.mapper
+package com.android.contact.android.crypto.change.core.internal.mapper
 
 interface Mapper<FROM, TO> {
     fun map(from: FROM): TO

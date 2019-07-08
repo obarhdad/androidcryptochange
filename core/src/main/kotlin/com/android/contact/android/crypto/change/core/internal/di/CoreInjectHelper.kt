@@ -1,8 +1,6 @@
 package com.android.contact.android.crypto.change.core.internal.di
 
 import android.content.Context
-import com.android.contact.android.crypto.change.core.internal.di.CoreComponent
-import com.android.contact.android.crypto.change.core.internal.di.CoreComponentProvider
 
 object CoreInjectHelper {
     fun provideCoreComponent(applicationContext: Context): CoreComponent {
