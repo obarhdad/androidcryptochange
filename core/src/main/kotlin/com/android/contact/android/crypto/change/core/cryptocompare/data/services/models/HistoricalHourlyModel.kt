@@ -11,10 +11,10 @@ data class HistoricalHourlyModel(
 
 data class HistoricalHourlyDataModel(
     val time: Long,
-    val close: Double,
-    val high: Double,
-    val low: Double,
-    val open: Double,
-    val volumefrom: Double,
-    val volumeto: Double
+    val close: String,
+    val high: String,
+    val low: String,
+    val open: String,
+    val volumefrom: String,
+    val volumeto: String
 )

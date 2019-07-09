@@ -2,5 +2,5 @@
     <string name="view_crypto_details_from">from : %s</string>
     <string name="view_crypto_details_to">to : %s</string>
     <string name="view_crypto_details_price">price : %s</string>
-
+    <string name="view_crypto_details_title">Crypto details</string>
 </resources>

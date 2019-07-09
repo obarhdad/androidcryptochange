@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="hystory"
+                  type="com.android.contact.android.crypto.details.models.HistoricalHourlyDataModelUi"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_begin="16dp"
+                android:id="@+id/guideline"/>
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline2"
+                app:layout_constraintGuide_end="16dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline3"
+                app:layout_constraintGuide_percent="0.5"
+        />
+        <TextView
+                android:text="@{hystory.date}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                android:layout_marginBottom="8dp"/>
+
+
+        <TextView
+                android:text="@{hystory.close}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView"/>
+
+        <TextView
+                android:text="@{hystory.high}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView"/>
+
+
+        <TextView
+                android:text="@{hystory.low}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+
+        <TextView
+                android:text="@{hystory.open}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+
+        <TextView
+                android:text="@{hystory.volumefrom}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"/>
+
+        <TextView
+                android:text="@{hystory.volumeto}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.contact.android.crypto.change.core.internal.communication.AppCommunication
 import com.android.contact.android.crypto.change.core.internal.di.CoreInjectHelper
+import com.android.contact.android.crypto.details.adapter.CryptoDetailsAdapter
 import com.android.contact.android.crypto.details.databinding.FragmentCryptoDetailsBinding
 import com.android.contact.android.crypto.details.di.CryptoDetailsModule
 import com.android.contact.android.crypto.details.di.DaggerCryptoDetailsComponent
@@ -41,6 +44,15 @@ class CryptoDetailsFragment : Fragment(),
         FragmentCryptoDetailsBinding.inflate(inflater, container, false)
             .run {
                 binding = this
+                cryptoDetailsListRecyclerView.apply {
+                    adapter = CryptoDetailsAdapter()
+                    DividerItemDecoration(
+                        context,
+                        (layoutManager as LinearLayoutManager).orientation
+                    ).also {
+                        addItemDecoration(it)
+                    }
+                }
                 return@run root
             }
 
@@ -69,6 +81,7 @@ class CryptoDetailsFragment : Fragment(),
     private fun setCryptoDetails(crypto: CryptoDetailsModelUi) {
         binding.apply {
             this.crypto = crypto
+            (cryptoDetailsListRecyclerView.adapter as CryptoDetailsAdapter).submitList(crypto.data)
         }
     }
 
