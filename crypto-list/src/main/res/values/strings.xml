@@ -1,3 +1,4 @@
 <resources>
+    <string name="view_crypto_details_title">Crypto list</string>
     <string name="view_crypto_item_price">price : %s</string>
 </resources>

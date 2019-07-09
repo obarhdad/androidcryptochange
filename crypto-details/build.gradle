@@ -33,6 +33,8 @@ dependencies {
 
     api libraries.appCompat
     api libraries.constraintLayout
+    api libraries.loadingView
+    api libraries.snackView
     // Dagger2
     kapt libraries.daggerCompiler
     kapt libraries.daggerProcessor

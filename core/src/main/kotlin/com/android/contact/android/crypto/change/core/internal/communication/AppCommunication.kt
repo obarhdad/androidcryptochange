@@ -4,6 +4,7 @@ interface AppCommunication {
     interface Navigation {
         fun onShowCryptoDetails(fSym: String, tSym: String)
         fun onShowCryptoList(tSym: String)
+        fun onShowError()
     }
 
     interface Module {

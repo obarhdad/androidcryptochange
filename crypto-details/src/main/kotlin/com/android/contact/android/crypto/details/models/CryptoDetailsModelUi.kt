@@ -16,10 +16,10 @@ data class CryptoDetailsModelUi(
 
 data class HistoricalHourlyDataModelUi(
     val date: String,
-    val close: Double,
-    val high: Double,
-    val low: Double,
-    val open: Double,
-    val volumefrom: Double,
-    val volumeto: Double
+    val close: String,
+    val high: String,
+    val low: String,
+    val open: String,
+    val volumefrom: String,
+    val volumeto: String
 )

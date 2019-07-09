@@ -31,9 +31,9 @@ class CryptoCompareRepositoryImpl(
         page: Int,
         tsym: String
     ): Single<List<MarketFullInfo>> =
-        databaseSource.getMarketFullInfo(page, tsym).switchIfEmpty(
+        //databaseSource.getMarketFullInfo(page, tsym).switchIfEmpty(
             getAndSaveMarketFullInfo(limit, page, tsym)
-        )
+        //)
 
     private fun getAndSaveMarketFullInfo(
         limit: Int,

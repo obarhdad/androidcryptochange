@@ -37,5 +37,7 @@ dependencies {
     api project(path: ':crypto-list')
     api project(path: ':crypto-details')
 
+    api libraries.appCompat
+    api libraries.constraintLayout
 
 }

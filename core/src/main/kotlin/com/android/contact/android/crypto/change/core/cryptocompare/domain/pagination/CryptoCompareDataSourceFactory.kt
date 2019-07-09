@@ -11,7 +11,7 @@ class CryptoCompareDataSourceFactory(
     private val symCurrency: String
 ) : DataSource.Factory<Int, MarketFullInfo>() {
 
-    val source: MutableLiveData<CryptoCompareDataSource> by lazy {
+    private val source: MutableLiveData<CryptoCompareDataSource> by lazy {
         MutableLiveData<CryptoCompareDataSource>()
     }
 

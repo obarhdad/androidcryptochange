@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.contact.android.crypto.change.core.internal.communication.AppCommunication
 import com.android.contact.android.crypto.change.core.internal.di.CoreInjectHelper
+import com.android.contact.android.crypto.details.adapter.CryptoDetailsAdapter
 import com.android.contact.android.crypto.details.databinding.FragmentCryptoDetailsBinding
 import com.android.contact.android.crypto.details.di.CryptoDetailsModule
 import com.android.contact.android.crypto.details.di.DaggerCryptoDetailsComponent
@@ -16,12 +19,15 @@ import com.android.contact.android.crypto.details.models.CryptoDetailsModelUi
 import com.android.contact.android.crypto.details.viewmodel.CryptoDetailsViewModel
 import javax.inject.Inject
 
+
 class CryptoDetailsFragment : Fragment(),
     AppCommunication.Module {
 
     @Inject
     internal lateinit var cryptoDetailsViewModel: CryptoDetailsViewModel
 
+    @Inject
+    internal lateinit var navigation: AppCommunication.Navigation
     lateinit var binding: FragmentCryptoDetailsBinding
 
     private val tSym: String
@@ -41,6 +47,15 @@ class CryptoDetailsFragment : Fragment(),
         FragmentCryptoDetailsBinding.inflate(inflater, container, false)
             .run {
                 binding = this
+                cryptoDetailsListRecyclerView.apply {
+                    adapter = CryptoDetailsAdapter()
+                    DividerItemDecoration(
+                        context,
+                        (layoutManager as LinearLayoutManager).orientation
+                    ).also {
+                        addItemDecoration(it)
+                    }
+                }
                 return@run root
             }
 
@@ -64,11 +79,15 @@ class CryptoDetailsFragment : Fragment(),
             if (value == null) cryptoDetailsViewModel.getCryptoDetails(fSym, tSym)
             observe(this@CryptoDetailsFragment, Observer(this@CryptoDetailsFragment::setCryptoDetails))
         }
+        cryptoDetailsViewModel.error.apply {
+            observe(this@CryptoDetailsFragment, Observer { navigation.onShowError() })
+        }
     }
 
     private fun setCryptoDetails(crypto: CryptoDetailsModelUi) {
         binding.apply {
             this.crypto = crypto
+            (cryptoDetailsListRecyclerView.adapter as CryptoDetailsAdapter).submitList(crypto.data)
         }
     }
 

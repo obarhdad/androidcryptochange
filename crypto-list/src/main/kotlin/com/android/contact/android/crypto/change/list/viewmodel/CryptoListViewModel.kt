@@ -12,9 +12,14 @@ class CryptoListViewModel(
 ) : KViewModel() {
 
     val marketFullInfo = CryptoCompareDataSourceFactory(cryptoCompareRepository, symCurrency)
-        .toLiveData(Config(PAGE_SIZE))
+        .toLiveData(Config(pageSize = PAGE_SIZE, initialLoadSizeHint = INITIAL_LOADED_SIZE_HINT))
+
+    fun refresh() = marketFullInfo.value?.dataSource?.invalidate()
 
     companion object {
-        const val PAGE_SIZE = 2
+        const val PAGE_SIZE = 20
+        const val INITIAL_LOADED_SIZE_HINT = 30
+
     }
 }
+

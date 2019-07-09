@@ -10,8 +10,8 @@ import io.reactivex.Maybe
 @Dao
 abstract class MarketPageFullInfoDao : KDao<MarketPageFullInfoEntity> {
 
-    @Query("SELECT * FROM market_page_full_info,market_full_info WHERE market_page_full_info.page = :page AND market_full_info.page = market_page_full_info.page ")
-    abstract fun getCryptoBy(page: Int): Maybe<MarketPageWithFullInfoDaoEntity>
+    @Query("SELECT * FROM market_page_full_info,market_full_info WHERE market_page_full_info.page = :page AND market_full_info.page = market_page_full_info.page AND market_page_full_info.created_at > :date")
+    abstract fun getCryptoBy(page: Int, date: Long): Maybe<MarketPageWithFullInfoDaoEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertMarketFullInfoEntity(fullInfoList: List<MarketFullInfoEntity>)

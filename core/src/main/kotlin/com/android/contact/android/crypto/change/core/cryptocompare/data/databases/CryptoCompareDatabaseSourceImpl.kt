@@ -3,8 +3,10 @@ package com.android.contact.android.crypto.change.core.cryptocompare.data.databa
 import com.android.contact.android.crypto.change.core.cryptocompare.data.databases.dao.MarketPageFullInfoDao
 import com.android.contact.android.crypto.change.core.cryptocompare.data.databases.models.MarketFullInfoEntity
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullInfo
+import com.android.contact.android.crypto.change.core.internal.extensions.addMinute
 import com.android.contact.android.crypto.change.core.internal.mapper.Mapper
 import io.reactivex.Maybe
+import java.util.*
 
 class CryptoCompareDatabaseSourceImpl(
     private val marketFullInfoDao: MarketPageFullInfoDao,
@@ -20,7 +22,7 @@ class CryptoCompareDatabaseSourceImpl(
     }
 
     override fun getMarketFullInfo(page: Int, tsym: String): Maybe<List<MarketFullInfo>> =
-        marketFullInfoDao.getCryptoBy(page).map {
+        marketFullInfoDao.getCryptoBy(page, Calendar.getInstance().timeInMillis).map {
             it.fullInfo?.map(marketFullInfoMapper::map)
         }
 
