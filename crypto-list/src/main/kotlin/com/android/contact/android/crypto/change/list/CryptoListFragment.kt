@@ -88,7 +88,7 @@ class CryptoListFragment : Fragment(),
     }
 
     private fun timeHandler() {
-        Handler().postDelayed({ getInitialData() }, DELAY_MILLIS)
+        //Handler().postDelayed({ getInitialData() }, DELAY_MILLIS)
     }
 
     private fun getInitialData() {
