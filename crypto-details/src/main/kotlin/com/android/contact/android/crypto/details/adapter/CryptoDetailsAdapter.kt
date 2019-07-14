@@ -21,7 +21,6 @@ class CryptoDetailsAdapter : ListAdapter<HistoricalHourlyDataModelUi, CryptoDeta
 
     override fun onBindViewHolder(holder: CryptoDetailsItemViewHolder, position: Int) =
         holder.bind(getItem(position)!!)
-
 }
 
 class HistoryListDiff : DiffUtil.ItemCallback<HistoricalHourlyDataModelUi>() {

@@ -31,9 +31,10 @@ class CryptoCompareRepositoryImpl(
         page: Int,
         tsym: String
     ): Single<List<MarketFullInfo>> =
-        //databaseSource.getMarketFullInfo(page, tsym).switchIfEmpty(
-            getAndSaveMarketFullInfo(limit, page, tsym)
-        //)
+            getAndSaveMarketFullInfo(limit, page, tsym).onErrorResumeNext {
+                databaseSource.getMarketFullInfo(page, tsym).toSingle()
+            }
+
 
     private fun getAndSaveMarketFullInfo(
         limit: Int,
@@ -44,4 +45,10 @@ class CryptoCompareRepositoryImpl(
             .doOnSuccess {
                 databaseSource.saveMarketFullInfoList(page, tsym, it)
             }
+
+    override fun getPriceByPair(
+        fsym: String,
+        tsym: String
+    ): Single<HashMap<String, String>> =
+        serviceSource.getPriceByPair(fsym, tsym)
 }

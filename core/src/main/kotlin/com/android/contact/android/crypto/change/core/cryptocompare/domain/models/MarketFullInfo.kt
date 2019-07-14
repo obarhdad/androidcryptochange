@@ -5,6 +5,6 @@ data class MarketFullInfo(
     val name: String,
     val fullName: String,
     val imageUrl: String,
-    val price: String,
+    var price: String,
     val symbol: String
 )

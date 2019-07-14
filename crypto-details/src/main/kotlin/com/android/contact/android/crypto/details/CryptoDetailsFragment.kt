@@ -88,6 +88,7 @@ class CryptoDetailsFragment : Fragment(),
         binding.apply {
             this.crypto = crypto
             (cryptoDetailsListRecyclerView.adapter as CryptoDetailsAdapter).submitList(crypto.data)
+            cryptoDetailsListRecyclerView.setHasFixedSize(false)
         }
     }
 

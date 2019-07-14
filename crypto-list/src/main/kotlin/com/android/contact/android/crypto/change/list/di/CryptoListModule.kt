@@ -3,6 +3,7 @@ package com.android.contact.android.crypto.change.list.di
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.repositories.CryptoCompareRepository
+import com.android.contact.android.crypto.change.core.internal.commons.KSchedulers
 import com.android.contact.android.crypto.change.core.internal.communication.AppCommunication
 import com.android.contact.android.crypto.change.list.CryptoListFragment
 import com.android.contact.android.crypto.change.list.viewmodel.CryptoListViewModel
@@ -22,9 +23,10 @@ class CryptoListModule(
 
     @Provides
     fun provideCryptoListViewModelFactory(
+        schedulers: KSchedulers,
         cryptoCompareRepository: CryptoCompareRepository
     ): CryptoListViewModelFactory =
-        CryptoListViewModelFactory(cryptoCompareRepository, symCurrency)
+        CryptoListViewModelFactory(schedulers, cryptoCompareRepository, symCurrency)
 
 
     @Provides

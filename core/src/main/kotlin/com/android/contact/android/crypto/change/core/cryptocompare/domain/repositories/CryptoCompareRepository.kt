@@ -3,6 +3,7 @@ package com.android.contact.android.crypto.change.core.cryptocompare.domain.repo
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.HistoricalHourly
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullByPair
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullInfo
+import io.reactivex.Observable
 import io.reactivex.Single
 
 interface CryptoCompareRepository{
@@ -22,4 +23,9 @@ interface CryptoCompareRepository{
         fsym: String,
         tsym: String
     ): Single<MarketFullByPair>
+
+    fun getPriceByPair(
+        fsym: String,
+        tsym: String
+    ): Single<HashMap<String, String>>
 }

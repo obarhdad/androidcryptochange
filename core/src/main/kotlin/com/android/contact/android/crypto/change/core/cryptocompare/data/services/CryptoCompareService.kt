@@ -28,4 +28,10 @@ interface CryptoCompareService {
         @Query("fsym") fsym: String,
         @Query("tsym") tsym: String
     ): Single<MarketFullByPairModel>
+
+    @GET("data/price")
+    fun getPriceByPair(
+        @Query("fsym") fsym: String,
+        @Query("tsyms") tsym: String
+    ): Single<HashMap<String, String>>
 }

@@ -9,6 +9,8 @@ import com.android.contact.android.crypto.change.core.internal.commons.KSchedule
 import com.android.contact.android.crypto.change.core.internal.commons.KViewModel
 import com.android.contact.android.crypto.change.core.internal.mapper.Mapper
 import com.android.contact.android.crypto.details.models.CryptoDetailsModelUi
+import io.reactivex.Observable
+import java.util.concurrent.TimeUnit
 
 class CryptoDetailsViewModel(
     private val schedulers: KSchedulers,
@@ -28,7 +30,8 @@ class CryptoDetailsViewModel(
         tsym: String
     ) {
         subscription.add(
-            getCryptoDetails.execute(CRYPTO_DETAIL_LIMIT, fsym, tsym)
+            getCryptoDetails.execute(CRYPTO_DETAIL_LIMIT, fsym, tsym).toObservable()
+                .repeatWhen { o -> o.concatMap { Observable.timer(CRYPTO_DETAIL_TIME, TimeUnit.MINUTES) } }
                 .map(cryptoDetailsMapper::map)
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.main())
@@ -39,8 +42,9 @@ class CryptoDetailsViewModel(
                 })
         )
     }
-
     companion object {
         const val CRYPTO_DETAIL_LIMIT = 20
+        const val CRYPTO_DETAIL_TIME = 2L
+
     }
 }

@@ -22,4 +22,9 @@ interface CryptoCompareServiceSource {
         fsym: String,
         tsym: String
     ): Single<MarketFullByPair>
+
+    fun getPriceByPair(
+        fsym: String,
+        tsym: String
+    ): Single<HashMap<String, String>>
 }

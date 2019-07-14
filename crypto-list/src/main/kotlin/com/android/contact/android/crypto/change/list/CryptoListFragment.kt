@@ -1,8 +1,10 @@
 package com.android.contact.android.crypto.change.list
 
 import android.content.Context
+import android.database.DataSetObserver
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullInfo
 import com.android.contact.android.crypto.change.core.internal.communication.AppCommunication
 import com.android.contact.android.crypto.change.core.internal.di.CoreInjectHelper
@@ -45,6 +48,7 @@ class CryptoListFragment : Fragment(),
         FragmentCryptoListBinding.inflate(inflater, container, false)
             .run {
                 binding = this
+                cryptoListRefreshLayout.isRefreshing = false
                 cryptoListRecyclerView.apply {
                     adapter = CryptoListAdapter()
                     DividerItemDecoration(
@@ -73,13 +77,18 @@ class CryptoListFragment : Fragment(),
     ) {
         super.onViewCreated(view, savedInstanceState)
         cryptoListViewModel.marketFullInfo.observe(this, Observer(this::setCriptoListAdapter))
-        timeHandler()
+        cryptoListViewModel.cryptoPrice.observe(this@CryptoListFragment, Observer(this@CryptoListFragment::submitPrice))
     }
 
     private fun setCriptoListAdapter(pagedList: PagedList<MarketFullInfo>) {
         binding.apply {
             cryptoListRefreshLayout.isRefreshing = false
-            (cryptoListRecyclerView.adapter as CryptoListAdapter).submit(this@CryptoListFragment::submitList, pagedList)
+            (cryptoListRecyclerView.adapter as CryptoListAdapter).submit(
+                this@CryptoListFragment::submitList,
+                this@CryptoListFragment::getCryptoDetails,
+                pagedList
+            )
+            cryptoListRefreshLayout.setOnRefreshListener { getInitialData() }
         }
     }
 
@@ -87,19 +96,30 @@ class CryptoListFragment : Fragment(),
         navigationApp.onShowCryptoDetails(fSym, tSym)
     }
 
-    private fun timeHandler() {
-        //Handler().postDelayed({ getInitialData() }, DELAY_MILLIS)
-    }
 
     private fun getInitialData() {
         binding.cryptoListRefreshLayout.isRefreshing = true
         cryptoListViewModel.refresh()
     }
 
+    private fun getCryptoDetails(
+        cryptoId: String,
+        symbol: String
+    ) {
+        Log.d("Symbol", cryptoId)
+        cryptoListViewModel.getCryptoDetails(symbol, cryptoId)
+    }
+
+    private fun submitPrice(map: Pair<String, String?>) {
+        Log.d("Symbol", map.first)
+        map.second?.let {
+            (binding.cryptoListRecyclerView.adapter as CryptoListAdapter).submit(map.first, it)
+        }
+    }
+
     companion object {
         private val TAG = CryptoListFragment::class.java.simpleName
         private val ARG_TSYM = "$TAG.ARG_TSYM"
-        private val DELAY_MILLIS = 600000L
 
         fun newInstance(tSym: String) = CryptoListFragment().apply {
             arguments = Bundle().apply {

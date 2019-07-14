@@ -7,6 +7,7 @@ import com.android.contact.android.crypto.change.core.cryptocompare.domain.model
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullByPair
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullInfo
 import com.android.contact.android.crypto.change.core.internal.mapper.Mapper
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class CryptoCompareServiceSourceImpl(
@@ -15,6 +16,9 @@ class CryptoCompareServiceSourceImpl(
     private val historicalHourlyMapper: Mapper<HistoricalHourlyModel, HistoricalHourly>,
     private val marketFullByPairMapper: Mapper<MarketFullByPairModel, MarketFullByPair>
 ) : CryptoCompareServiceSource {
+    override fun getPriceByPair(fsym: String, tsym: String): Single<HashMap<String, String>> =
+        service.getPriceByPair(fsym, tsym)
+
     override fun getHistoricalHour(limit: Int, fsym: String, tsym: String): Single<HistoricalHourly> =
         service.getHistoricalHour(limit, fsym, tsym).map { historicalHourlyMapper.map(it) }
 

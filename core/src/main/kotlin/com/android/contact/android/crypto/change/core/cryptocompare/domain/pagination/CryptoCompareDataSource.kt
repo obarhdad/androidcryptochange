@@ -1,46 +1,52 @@
 package com.android.contact.android.crypto.change.core.cryptocompare.domain.pagination
 
-import androidx.paging.PageKeyedDataSource
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.models.MarketFullInfo
 import com.android.contact.android.crypto.change.core.cryptocompare.domain.repositories.CryptoCompareRepository
-import io.reactivex.disposables.CompositeDisposable
+import com.android.contact.android.crypto.change.core.internal.commons.KPageKeyedDataSource
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class CryptoCompareDataSource(
-    private val subscription: CompositeDisposable,
     private val cryptoCompareRepository: CryptoCompareRepository,
     private val symCurrency: String
-) : PageKeyedDataSource<Int, MarketFullInfo>() {
+) : KPageKeyedDataSource<Int, MarketFullInfo>() {
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, MarketFullInfo>) {
-        cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, FIRST_PAGE, symCurrency)
-            .let {
-                subscription.add(it.subscribe({ data ->
-                    callback.onResult(data, 0, PAGE_PER_COUNT, null, FIRST_PAGE + 1)
+        subscription.add(
+            cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, FIRST_PAGE, symCurrency)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data ->
+                    callback.onResult(data, null, FIRST_PAGE + 1)
                 }, {
                     // TODO
-                }))
-            }
+                })
+        )
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, MarketFullInfo>) {
-        cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, params.key, symCurrency)
-            .let {
-                subscription.add(it.subscribe({ data ->
+        subscription.add(
+            cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, params.key, symCurrency)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data ->
                     callback.onResult(data, params.key + 1)
                 }, {
                     // TODO
-                }))
-            }
+                })
+        )
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, MarketFullInfo>) {
-        cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, params.key, symCurrency)
-            .let {
-                subscription.add(it.subscribe({ data ->
+        subscription.add(
+            cryptoCompareRepository.getMarketFullInfo(PAGE_PER_COUNT, params.key, symCurrency)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data ->
                     callback.onResult(data, getPrevious(params))
                 }, {
                     // TODO
-                }))
-            }
+                })
+        )
     }
 
     private fun getPrevious(params: LoadParams<Int>): Int? =
